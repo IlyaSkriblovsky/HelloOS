@@ -1,0 +1,89 @@
+
+ -= HelloOS Educational Project =-
+ -===============================-
+
+  $Id: README 18 2005-12-07 07:28:43Z ilya $
+
+
+COMPILING HelloOS
+
+   In order to compile HelloOS you will need following tools:
+      * Make
+         Actually, you *can* compile without it, by your own
+         /dev/hands.
+
+      * GCC C-compiler
+         Some parts of the code (especially inline asm) are
+         gcc-specific and probably wont to compile with other
+         tools. If you are able to compile HelloOS without gcc
+         please let me know!
+
+      * dev86 package (as86 and ld86)
+         Bootsector if written with as86 assembler. I think it
+         wont to compile with other assembler.
+
+      To compile both the bootsector and the kernel just type:
+         $ make depend
+         $ make
+      In result you'll receive these files:
+         * boot.bin     - bootsector for FAT12-floppy
+         * hello        - HelloOS' kernel
+         * start        - main() function ;) (like init in linux)
+         * user/        - demo binaries in this folder cat
+                                 be runned with 'exe <filename>'
+                                 console command under HelloOS
+
+      If you will not run 'make depend' it'll compile anyway but
+      there is can be some warnings.
+
+
+INSTALLING
+
+      To make bootable floppy image type:
+         $ make image
+      You will receive file 'image' with floppy image.
+      To install HelloOS on floppy, insert floppy into /dev/fd0
+      and type:
+         $ make install
+      (this command suggests that /mnt/floppy is a mount point
+      for /dev/fd0)
+      Your files on this floppy will NOT be erased, but it is
+      a risk to destroy the filesystem if this floppy is not
+      standard DOS-formatted one. See comments in boot.S (in
+      russian ;) ).
+
+WWW
+      Visit our site: http://helloos.berlios.de and HelloOS'
+      project page on http://developer.berlios.de/projects/helloos.
+      There you can find latest releases of HelloOS, bug tracking
+      system, get support and get latest testing sources snapshot
+      via Subversion (SVN).
+      
+
+FEATURES
+
+These commands are supported in the console:
+   * clear     -  clears the screen (except the bottom line)
+
+   * exe <filename> - loads specified a.out file into memory
+                  and creates new process for it. See comments
+                  above on what demos included in the sources.
+
+   * info <filename> - prints headers of specified a.out-binary file
+
+   * ps        -  lists all processes in the system
+
+   * kill <pid> - kills process with specified PID (see 'ps' list)
+
+   * pages <pid> - prints memory usage by process with specified PID
+                  (see 'ps' list)
+
+   * gp        -  invokes General Protection Fault in main process.
+                  Main process will be killed after it.
+
+   * beep      -  invokes a beeeep with PC-speaker. It is no
+                  way to stop it.
+
+   * cpu       -  prints some information about your CPU
+
+   * help      -  List of other console commands
