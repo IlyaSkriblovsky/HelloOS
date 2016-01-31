@@ -4,8 +4,8 @@
  *
  *  $Id: types.h 18 2005-12-07 07:28:43Z ilya $
  *
- *  Сокращенные определения часто используемых
- *  типов
+ *  п║п╬п╨я─п╟я┴п╣п╫п╫я▀п╣ п╬п©я─п╣п╢п╣п╩п╣п╫п╦я▐ я┤п╟я│я┌п╬ п╦я│п©п╬п╩я▄п╥я┐п╣п╪я▀я┘
+ *  я┌п╦п©п╬п╡
  *
  */
 
@@ -15,20 +15,20 @@
 
 
 
-// Полезные shortcut'ы
+// п÷п╬п╩п╣п╥п╫я▀п╣ shortcut'я▀
 typedef unsigned char   uchar;
 typedef unsigned char   byte;
 typedef unsigned short  ushort;
 typedef unsigned int    uint;
 typedef unsigned int    ulong;
 
-// Типы используются для того, чтобы подчеркнуть,
-// что переменная содержит адрес, смещение, индекс
+// п╒п╦п©я▀ п╦я│п©п╬п╩я▄п╥я┐я▌я┌я│я▐ п╢п╩я▐ я┌п╬пЁп╬, я┤я┌п╬п╠я▀ п©п╬п╢я┤п╣я─п╨п╫я┐я┌я▄,
+// я┤я┌п╬ п©п╣я─п╣п╪п╣п╫п╫п╟я▐ я│п╬п╢п╣я─п╤п╦я┌ п╟п╢я─п╣я│, я│п╪п╣я┴п╣п╫п╦п╣, п╦п╫п╢п╣п╨я│
 typedef unsigned int    addr_t;
 typedef unsigned int    offs_t;
 typedef unsigned int    indx_t;
 
-// Для стандартных функций
+// п■п╩я▐ я│я┌п╟п╫п╢п╟я─я┌п╫я▀я┘ я└я┐п╫п╨я├п╦п╧
 typedef unsigned int    size_t;
 
 
@@ -37,20 +37,20 @@ typedef uchar bool;
 
 
 
-// Структура для одного дескриптора в системных
-// таблицах типа GDT.
+// п║я┌я─я┐п╨я┌я┐я─п╟ п╢п╩я▐ п╬п╢п╫п╬пЁп╬ п╢п╣я│п╨я─п╦п©я┌п╬я─п╟ п╡ я│п╦я│я┌п╣п╪п╫я▀я┘
+// я┌п╟п╠п╩п╦я├п╟я┘ я┌п╦п©п╟ GDT.
 typedef struct _Descriptor Descriptor;
 struct _Descriptor
 {
    ulong a, b;
 };
 
-// Эта структура используется для вызова инструкций sgdt/lgdt
+// п╜я┌п╟ я│я┌я─я┐п╨я┌я┐я─п╟ п╦я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ п╢п╩я▐ п╡я▀п╥п╬п╡п╟ п╦п╫я│я┌я─я┐п╨я├п╦п╧ sgdt/lgdt
 typedef struct _GDTDescriptor GDTDescriptor;
 struct _GDTDescriptor
 {
-   ushort Size; // Размер GDT - 1
-   Descriptor *Addr; // Адрес GDT
+   ushort Size; // п═п╟п╥п╪п╣я─ GDT - 1
+   Descriptor *Addr; // п░п╢я─п╣я│ GDT
 } __attribute__((packed));
 
 

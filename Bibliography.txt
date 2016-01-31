@@ -5,18 +5,18 @@
   $Id: Bibliography.txt 14 2005-07-28 12:36:58Z ilya $
 
 
-Использованная литература:
+п≤я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╫п╟я▐ п╩п╦я┌п╣я─п╟я┌я┐я─п╟:
 
 [1] IA-32 Intel Architecture Software Developer's Manual
       Intel Corporation
 
 [2] The Real "Hello World"
-      Станислав Иевлев
+      п║я┌п╟п╫п╦я│п╩п╟п╡ п≤п╣п╡п╩п╣п╡
       linux.ru.net
 
-[3] Ассемблер для DOS, Windows и Unix
-      С. В. Зубков
-      Изд-во ДМК
+[3] п░я│я│п╣п╪п╠п╩п╣я─ п╢п╩я▐ DOS, Windows п╦ Unix
+      п║. п▓. п≈я┐п╠п╨п╬п╡
+      п≤п╥п╢-п╡п╬ п■п°п 
 
 [4] FAT: General Overview of On-Disk Format
       Version 1.02
@@ -25,9 +25,9 @@
 [5] Linux Sources
       Versions 0.0.1, 1.0 and 2.6.3
 
-[6] MS-DOS Для Программиста
-      А. Фролов, Г. Фролов
-      Изд-во Диалог-МИФИ, 1995.
+[6] MS-DOS п■п╩я▐ п÷я─п╬пЁя─п╟п╪п╪п╦я│я┌п╟
+      п░. п╓я─п╬п╩п╬п╡, п⌠. п╓я─п╬п╩п╬п╡
+      п≤п╥п╢-п╡п╬ п■п╦п╟п╩п╬пЁ-п°п≤п╓п≤, 1995.
 
 [7] Intel 82077A Floppy Disk Controller Data Sheet
       May 1994
