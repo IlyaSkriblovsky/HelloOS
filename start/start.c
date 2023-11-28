@@ -343,7 +343,7 @@ void kill(char *arg1, char *arg2)
    {
       pid *= 10;
       pid += *arg1 - 0x30;
-      *arg1++;
+      arg1++;
    }
    sys_kill(pid);
    return;
@@ -381,7 +381,7 @@ void pages(char *arg1, char *arg2)
    {
       pid *= 10;
       pid += *arg1 - 0x30;
-      *arg1++;
+      arg1++;
    }
    sys_pages_info(pid);
    return;

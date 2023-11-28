@@ -80,7 +80,7 @@ int strlen(char *s)
       "repne scasb\n"
       "not %%ecx\n"
       "dec %%ecx\n"
-      :"+D"(s),"+c"(res)
+      :"+D"(s),"=c"(res)
    );
    return res;
 }

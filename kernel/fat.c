@@ -285,7 +285,7 @@ void DirIterate(ulong Cluster, DirCallback Callback, void *Data)
 
    while (Entry->Name[0])
    {
-      if ((Entry->Name[0] != 0xe5)  &&  ((Entry->Attr & ATTR_LONG_NAME) != ATTR_LONG_NAME))
+      if ((Entry->Name[0] != '\xe5')  &&  ((Entry->Attr & ATTR_LONG_NAME) != ATTR_LONG_NAME))
          if (! Callback(Entry, Data))
             break;
 
@@ -319,7 +319,7 @@ void RootDirIterate(DirCallback Callback, void *Data)
 
       while (Entry->Name[0])
       {
-         if ((Entry->Name[0] != 0xe5)  &&  ((Entry->Attr & ATTR_LONG_NAME) != ATTR_LONG_NAME))
+         if ((Entry->Name[0] != '\xe5')  &&  ((Entry->Attr & ATTR_LONG_NAME) != ATTR_LONG_NAME))
             if (! Callback(Entry, Data))
                break;
          Entry++;
@@ -405,7 +405,7 @@ void FileIterate(DirEntry *Entry, FileCallback Callback, void *Data)
 bool PrintFileCallback(uchar *Block, ulong len, void *Data)
 {
    ulong i;
-   uchar s[] = {0, 0};
+   char s[] = {0, 0};
    for (i = 0; i < len; i++)
    {
       s[0] = Block[i];
@@ -527,7 +527,7 @@ void Make83Name(char *fullname, char *name83)
 
 struct _FindData
 {
-   uchar *Name;
+   char *Name;
    ulong Result;
    DirEntry *EntryBuf;
 };
@@ -713,12 +713,15 @@ bool user_load_file(uchar *Block, ulong len, LoadPartData *Data)
 // заполнится буфер
 uint syscall_file_load(DirEntry *Entry, byte *Buf, FileChunk *chunk)
 {
-   FileChunk locchunk;
+   FileChunk locchunk = {
+       .start = 0,
+       .length = (uint)-1
+   };
    if (chunk)
       memcpy_from_user(&locchunk, chunk, sizeof(FileChunk));
    LoadPartData Data = {
-      .start = chunk == 0 ? 0 : locchunk.start,
-      .len = chunk == 0 ? (uint)-1 : locchunk.length,
+      .start = locchunk.start,
+      .len = locchunk.length,
       .Buf = Buf,
       .bufpos = 0,
       .filepos = 0

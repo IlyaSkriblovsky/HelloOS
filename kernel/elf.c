@@ -170,7 +170,7 @@ char *parse_pheadertype(ulong type)
 // Выводит строку: имя секции
 void print_sectionname(Elf32_Shdr *StrSec, Elf32_Shdr *Section, DirEntry *file)
 {
-   char name[100];
+   char name[101];
    // Смещение в файле null-строки с именем секции
    int pos = StrSec->sh_offset+Section->sh_name;
    // Пользуемся тем, что LoadPart остановится, если увидит конец файла

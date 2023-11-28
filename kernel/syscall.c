@@ -31,11 +31,11 @@ uint syscall_exit(uint exitcode);
 
 uint syscall_getpid();
 
-char syscall_getchar(uint x, uint y);
+uint syscall_getchar(uint x, uint y);
 uint syscall_setchar(uint x, uint y, char c);
 uint syscall_setattr(uint x, uint y, byte a);
 
-char syscall_getch();
+uint syscall_getch();
 
 uint syscall_nputs_color(char *s, uint n, uchar attr);
 
@@ -144,7 +144,7 @@ uint syscall_incvideochar(uint addr)
 // памяти. Предупреждать GP, PF (в смысле выхода за выделенную память.
 uint syscall_nputs_color(char *s, uint n, uchar attr)
 {
-   uchar localbuf[256];
+   char localbuf[256];
    memcpy_from_user(localbuf, s, MIN(n, 256));
    nputs_color(localbuf, MIN(n, 256), attr);
    return MIN(n, 256);
@@ -153,7 +153,7 @@ uint syscall_nputs_color(char *s, uint n, uchar attr)
 
 // Системный вызов syscall_getch
 // Ожидает нажатия клавиши и возвращает ее ascii-код
-char syscall_getch()
+uint syscall_getch()
 {
    uchar cp, c = inb(0x60);
    char ascii;

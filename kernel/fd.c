@@ -145,8 +145,7 @@ void fd_init()
    fd_wait_for_int();
 
    out_FIFO(0x08);      // Посылаем комадну Sense Interrupt Status
-   uchar ST0;
-   ST0 = in_FIFO();           // И считываем ее результат: ST0 и PCN
+   /*uchar ST0 =*/ in_FIFO();           // И считываем ее результат: ST0 и PCN
    in_FIFO();
 }
 
@@ -183,7 +182,7 @@ void fd_write_sector_real(uint lba, uchar *buf)
 {
    const int SecPerCyl = 18;
 
-   uchar PCN, ST0, ST1, ST2, C, H, R, N;
+   uchar PCN, ST0, ST1, ST2; //, C, H, R, N;
    int sector, head, cylinder;
 
    // Переводим LBA в Cylinder:Head:Sector
@@ -239,10 +238,10 @@ void fd_write_sector_real(uint lba, uchar *buf)
    ST0 = in_FIFO();
    ST1 = in_FIFO();
    ST2 = in_FIFO();
-   C   = in_FIFO();
-   H   = in_FIFO();
-   R   = in_FIFO();
-   N   = in_FIFO();
+   /*uchar C   =*/ in_FIFO();
+   /*uchar H   =*/ in_FIFO();
+   /*uchar R   =*/ in_FIFO();
+   /*uchar N   =*/ in_FIFO();
 
    if (ST0 & 0xd8) panic("FD: Read error (ST0)");
    if (ST1 & 0x02) panic("FD: Read-only");
@@ -295,7 +294,7 @@ void fd_read_sector_real(uint lba, uchar *buf)
 {
    const int SecPerCyl = 18;
 
-   uchar PCN, ST0, ST1, ST2, C, H, R, N;
+   uchar PCN, ST0, ST1, ST2; //, C, H, R, N;
    int sector, head, cylinder;
 
    // Переводим LBA в Cylinder:Head:Sector
@@ -351,10 +350,10 @@ void fd_read_sector_real(uint lba, uchar *buf)
    ST0 = in_FIFO();
    ST1 = in_FIFO();
    ST2 = in_FIFO();
-   C   = in_FIFO();
-   H   = in_FIFO();
-   R   = in_FIFO();
-   N   = in_FIFO();
+   /*uchar C   =*/ in_FIFO();
+   /*uchar H   =*/ in_FIFO();
+   /*uchar R   =*/ in_FIFO();
+   /*uchar N   =*/ in_FIFO();
 
    if (ST0 & 0xd8) panic("FD: Read error (ST0)");
    if (ST1 & 0x02) panic("FD: Read-only");

@@ -17,7 +17,7 @@ int main()
 {
    uint myaddr = sys_comvar_init("char pos", 3);
    sys_comvar_add("char pos", +1);
-   uint w, h;
+   uint w = 0, h = 0;
    sys_screen_info(&w, &h);
 
    sys_setattr(myaddr, h, 0x0a);

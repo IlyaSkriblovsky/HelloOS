@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
       FileChunk chunk = {0, size};
       do
       {
-         l = sys_file_load(&file, BUF, &chunk);
+         l = sys_file_load(&file, (byte*)BUF, &chunk);
          nputs(BUF, l);
          chunk.start += size;
       } while (l == size);

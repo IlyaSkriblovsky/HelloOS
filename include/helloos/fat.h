@@ -21,7 +21,7 @@
 // структур.
 typedef struct
 {
-   uchar    Name[11];      // 11
+   char     Name[11];      // 11
    uchar    Attr;          // 1
    uchar    NTRes;         // 1
    uchar    CrtTimeTenth;  // 1

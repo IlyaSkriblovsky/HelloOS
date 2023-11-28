@@ -36,7 +36,7 @@ VER_ALPHA = j
 .EXPORT_ALL_VARIABLES:
 
 INCLUDES = -I../include -I../config -I..
-CFLAGS = -m32 -Wa,--32 -O2 -nostdlib -ffreestanding -W -Wall -save-temps $(INCLUDES) \
+CFLAGS = -m32 -Wa,--32 -Werror -O2 -nostdlib -ffreestanding -W -Wall -save-temps $(INCLUDES) \
 			-DVER_MAJOR=$(VER_MAJOR) -DVER_MINOR=$(VER_MINOR) -DVER_ALPHA=\"$(VER_ALPHA)\"
 LD_FLAGS = -m elf_i386
 
