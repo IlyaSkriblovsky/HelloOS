@@ -27,16 +27,17 @@
 // Издает бесконечный звук и может быть полезна для отладки
 void make_sound()
 {
-__asm__(
-   "movb    $0xb6, %al\n"
-   "outb    %al, $0x43\n"
-   "movb    $0x0d, %al\n"
-   "outb    %al, $0x42\n"
-   "movb    $0x11, %al\n"
-   "outb    %al, $0x42\n"
-   "inb     $0x61, %al\n"
-   "orb     $3, %al\n"
-   "outb    %al, $0x61\n");
+   asm(
+      "movb    $0xb6, %al\n"
+      "outb    %al, $0x43\n"
+      "movb    $0x0d, %al\n"
+      "outb    %al, $0x42\n"
+      "movb    $0x11, %al\n"
+      "outb    %al, $0x42\n"
+      "inb     $0x61, %al\n"
+      "orb     $3, %al\n"
+      "outb    %al, $0x61\n"
+   );
 }
 
 
@@ -250,12 +251,16 @@ void cpu(char *arg1, char *arg2)
    ulong eax, ebx, ecx, edx;
    ulong maxeax, maxexeax; // Макс. индексы для Basic и Extended CPUID информации
    ulong vendor[3]; // Имя производителя
-   __asm__ volatile("movl $0x0, %%eax\n"
-         "cpuid"
-         :"=a"(maxeax), "=b"(vendor[0]), "=c"(vendor[2]), "=d"(vendor[1]):);
-   __asm__ volatile ("movl $0x80000000, %%eax\n"
-         "cpuid"
-         :"=a"(maxexeax):);
+   asm(
+      "movl $0x0, %%eax\n"
+      "cpuid"
+      :"=a"(maxeax), "=b"(vendor[0]), "=c"(vendor[2]), "=d"(vendor[1])
+   );
+   asm(
+      "movl $0x80000000, %%eax\n"
+      "cpuid"
+      :"=a"(maxexeax)
+   );
    printf("Maximum CPUID indexes: %p/%p", (char*)maxeax, (char*)maxexeax);
 
    puts("\nVendor: "); nputs((char*)&vendor, 12);
@@ -265,23 +270,31 @@ void cpu(char *arg1, char *arg2)
    if ((maxexeax & 0x80000000) && maxexeax >= 0x80000004) // Если процессор поддерживает Brand String
    {
       ulong BrandString[12];
-      __asm__ volatile ("movl $0x80000002, %%eax\n"
-            "cpuid"
-            :"=a"(BrandString[0]), "=b"(BrandString[1]), "=c"(BrandString[2]), "=d"(BrandString[3]):);
-      __asm__ volatile ("movl $0x80000003, %%eax\n"
-            "cpuid"
-            :"=a"(BrandString[4]), "=b"(BrandString[5]), "=c"(BrandString[6]), "=d"(BrandString[7]):);
-      __asm__ volatile ("movl $0x80000004, %%eax\n"
-            "cpuid"
-            :"=a"(BrandString[8]), "=b"(BrandString[9]), "=c"(BrandString[10]), "=d"(BrandString[11]):);
+      asm(
+         "movl $0x80000002, %%eax\n"
+         "cpuid"
+         :"=a"(BrandString[0]), "=b"(BrandString[1]), "=c"(BrandString[2]), "=d"(BrandString[3])
+      );
+      asm(
+         "movl $0x80000003, %%eax\n"
+         "cpuid"
+         :"=a"(BrandString[4]), "=b"(BrandString[5]), "=c"(BrandString[6]), "=d"(BrandString[7])
+      );
+      asm(
+         "movl $0x80000004, %%eax\n"
+         "cpuid"
+         :"=a"(BrandString[8]), "=b"(BrandString[9]), "=c"(BrandString[10]), "=d"(BrandString[11])
+      );
       puts((char*)&BrandString);
    }
    else
       puts("Not Supported");
 
-   __asm__ volatile ("movl $0x1, %%eax\n"
-         "cpuid"
-         :"=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx):);
+   asm(
+      "movl $0x1, %%eax\n"
+      "cpuid"
+      :"=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
+   );
    // Информация о модели процессора
    printf("\nFamily   : %d", (eax >> 8) & 0x0f);
    printf("\nModel    : %d", (eax >> 4) & 0x0f);

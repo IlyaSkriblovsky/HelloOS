@@ -73,16 +73,20 @@ void gotoxy(int x, int y)
 //Работает, используя прямую запись в видеопамять
 void scroll()
 {
-   __asm__ ("movl $0xb8000, %%edi\n"
-            "movl $0xb80a0, %%esi\n"
-            "movl $920, %%ecx\n"
-            "cld\n"
-            "rep movsl\n"
-            "movl $0x0e200e20, %%eax\n"
-            "movl $0xb8e60, %%edi\n"
-            "movl $40, %%ecx\n"
-            "rep stosl\n"
-            :::"di","si");
+    asm volatile(
+        "movl $0xb8000, %%edi\n"
+        "movl $0xb80a0, %%esi\n"
+        "movl $920, %%ecx\n"
+        "cld\n"
+        "rep movsl\n"
+        "movl $0x0e200e20, %%eax\n"
+        "movl $0xb8e60, %%edi\n"
+        "movl $40, %%ecx\n"
+        "rep stosl\n"
+        :
+        :
+        :"di","si","ecx","memory"
+    );
 }
 
 

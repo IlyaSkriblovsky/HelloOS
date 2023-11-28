@@ -4,22 +4,22 @@ LIBOBJS = ../lib/string.o
 all: hello
 
 hello: $(OBJS) $(LIBOBJS)
-	ld -M -Ttext 0x5000 -e HelloWorld --oformat=binary $(OBJS) $(LIBOBJS) -o $@ >map.txt
+	$(LD) $(LD_FLAGS) -M -Ttext 0x5000 -e HelloWorld --oformat=binary $(OBJS) $(LIBOBJS) -o $@ >map.txt
 
 .c.o:
-	gcc $(CFLAGS) -c $< -o $@
+	$(CC) -fno-pic $(CFLAGS) -c $< -o $@
 
 .S.o:
-	gcc $(CFLAGS) -c $< -o $@
+	$(CC) -fno-pic $(CFLAGS) -c $< -o $@
 
 .S.s:
-	gcc $(CFLAGS) -E $< -o $@
+	$(CC) -fno-pic $(CFLAGS) -E $< -o $@
 
 
 depend:
-	for i in *.[cS]; do gcc -M $(CFLAGS) $$i; done >depend
+	for i in *.[cS]; do $(CC) -M $(CFLAGS) $$i; done >depend
 
 clean:
-	rm -rf *.{i,s,o} hello map.txt *~ depend
+	rm -rf *.i *.s *.o hello map.txt *~ depend
 
 include depend

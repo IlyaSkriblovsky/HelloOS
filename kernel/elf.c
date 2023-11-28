@@ -345,7 +345,7 @@ uint elf_load(char *Name, char *arg)
 
    // Сохраняем таблицу дескрипторов
    GDTDescriptor GDT;
-   __asm__("sgdt %0":: "m" (GDT));
+   asm("sgdt %0":: "m" (GDT));
    ushort desc_count = (GDT.Size + 1) >> 3;
    ushort tssn = desc_count;
 
@@ -414,7 +414,7 @@ uint elf_load(char *Name, char *arg)
 
    // Загружаем gdtr
    GDT.Size += 8; // Один дескриптор добавили
-   __asm__("lgdt %0"::"m"(GDT));
+   asm("lgdt %0"::"m"(GDT));
 
    // Живи!
    Task[NTasks] = task;

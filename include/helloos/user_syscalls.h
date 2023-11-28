@@ -20,41 +20,57 @@
 // Макросы для объявления клиентских заглушек к
 // системным вызовам
 
-#define SYSCALL0(name, idx, restype)   \
-extern inline restype sys_##name()    \
-{                                      \
-   restype res;                        \
-   __asm__ volatile("int $0x80\n"      \
-         :"=a"(res):"0"(idx));         \
-   return res;                         \
+#define SYSCALL0(name, idx, restype)    \
+inline restype sys_##name()             \
+{                                       \
+   restype res;                         \
+   asm volatile(                        \
+      "int $0x80\n"                     \
+      :"=a"(res)                        \
+      :"0"(idx)                         \
+      :"memory"                         \
+   );                                   \
+   return res;                          \
 }
 
 #define SYSCALL1(name, idx, restype, t1)\
-extern inline restype sys_##name(t1 a1)\
-{                                      \
-   restype res;                        \
-   __asm__ volatile("int $0x80\n"      \
-         :"=a"(res):"0"(idx), "b"(a1));\
-   return res;                         \
+inline restype sys_##name(t1 a1)        \
+{                                       \
+   restype res;                         \
+   asm volatile(                        \
+      "int $0x80\n"                     \
+      :"=a"(res)                        \
+      :"0"(idx), "b"(a1)                \
+      :"memory"                         \
+   );                                   \
+   return res;                          \
 }
 
 #define SYSCALL2(name, idx, restype, t1, t2)\
-extern inline restype sys_##name(t1 a1, t2 a2)\
-{                                      \
-   restype res;                        \
-   __asm__ volatile("int $0x80\n"      \
-         :"=a"(res):"0"(idx), "b"(a1), "c"(a2));\
-   return res;                         \
+inline restype sys_##name(t1 a1, t2 a2)     \
+{                                           \
+   restype res;                             \
+   asm volatile(                            \
+      "int $0x80\n"                         \
+      :"=a"(res)                            \
+      :"0"(idx), "b"(a1), "c"(a2)           \
+      :"memory"                             \
+   );                                       \
+   return res;                              \
 }
 
 
 #define SYSCALL3(name, idx, restype, t1, t2, t3)\
-extern inline restype sys_##name(t1 a1, t2 a2, t3 a3)\
-{                                      \
-   restype res;                        \
-   __asm__ volatile("int $0x80\n"      \
-         :"=a"(res):"0"(idx), "b"(a1), "c"(a2), "d"(a3));\
-   return res;                         \
+inline restype sys_##name(t1 a1, t2 a2, t3 a3)  \
+{                                               \
+   restype res;                                 \
+   asm volatile(                                \
+      "int $0x80\n"                             \
+      :"=a"(res)                                \
+      :"0"(idx), "b"(a1), "c"(a2), "d"(a3)      \
+      :"memory"                                 \
+   );                                           \
+   return res;                                  \
 }
 
 // Несложно заметить, что все вызовы сделаны только в отладочных

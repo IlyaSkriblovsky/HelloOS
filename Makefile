@@ -36,10 +36,9 @@ VER_ALPHA = j
 .EXPORT_ALL_VARIABLES:
 
 INCLUDES = -I../include -I../config -I..
-CFLAGS = -O2 -nostdlib -ffreestanding -W -Wall -save-temps $(INCLUDES) \
+CFLAGS = -m32 -Wa,--32 -O2 -nostdlib -ffreestanding -W -Wall -save-temps $(INCLUDES) \
 			-DVER_MAJOR=$(VER_MAJOR) -DVER_MINOR=$(VER_MINOR) -DVER_ALPHA=\"$(VER_ALPHA)\"
-#-Werror
-AOUT_CFLAGS = $(CFLAGS)
+LD_FLAGS = -m elf_i386
 
 
 all: image
@@ -56,7 +55,16 @@ subdirs:
 
 
 
-FILES = kernel/hello start/start user/{test,cat,ls,xo,waitvar,setvar} test.txt
+FILES = \
+	kernel/hello	\
+	start/start		\
+	user/test		\
+	user/cat		\
+	user/ls			\
+	user/xo			\
+	user/waitvar	\
+	user/setvar		\
+	test.txt
 
 image: subdirs
 	dd if=/dev/zero of=image bs=512 count=2880
@@ -76,7 +84,7 @@ emu: image
 	bochs -qf emulate.txt
 
 qemu: image
-	qemu -m 16 -fda image
+	qemu-system-i386 -m 16 -drive file=image,index=0,if=floppy,format=raw
 
 
 clean:

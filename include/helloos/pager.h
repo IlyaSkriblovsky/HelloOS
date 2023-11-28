@@ -24,7 +24,7 @@ void map_page(addr_t phaddr, TaskStruct *task, addr_t vaddr, uint flags);
 
 
 // Перегружает CR3 сбрасывая кэш страниц
-#define reload_cr3()  { __asm__("mov %cr3, %eax ; mov %eax, %cr3"); }
+#define reload_cr3()  { asm("mov %cr3, %eax ; mov %eax, %cr3"); }
 
 // Возвращает указатель на начало страницы, которой принадлежит
 // аргумент-указатель

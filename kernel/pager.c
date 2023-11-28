@@ -51,10 +51,12 @@ void pager_init()
 addr_t alloc_first_page()
 {
    ulong res, dumb;
-   __asm__ volatile (
-         "cld\n"
-         "repne scasw\n"
-         :"=c"(res),"=D"(dumb):"1"(page_map), "0"(PAGES_NR+1), "a"(0));
+   asm volatile (
+      "cld\n"
+      "repne scasw\n"
+      :"=c"(res),"=D"(dumb)
+      :"1"(page_map), "0"(PAGES_NR+1), "a"(0)
+   );
    res = PAGES_NR - res;
    if (res == PAGES_NR)
    {
